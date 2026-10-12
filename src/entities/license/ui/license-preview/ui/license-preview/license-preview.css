@@ -1,0 +1,10 @@
+.license-preview {
+  width: 100%;
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+}
+
+.license-preview-scaler {
+  width: 1312px;
+  transform-origin: 0 0;
+}
