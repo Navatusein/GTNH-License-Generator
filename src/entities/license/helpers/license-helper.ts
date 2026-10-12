@@ -121,6 +121,10 @@ function todayIso(): string {
   return `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
 }
 
+export function isExpired(expires: string): boolean {
+  return expires < todayIso();
+}
+
 /** Absolute link to the verification page (the app uses hash routing). */
 export function buildVerifyUrl(data: LicenseData): string {
   const {origin, pathname} = window.location;
@@ -131,5 +135,5 @@ export function verifyLicense(params: URLSearchParams): VerifyResult {
   const data = decodeLicenseId(params.get("id") ?? "");
   if (!data || !data.nick || data.nick.length > MAX_NICK_LENGTH || !isIsoDate(data.expires)) return {status: "invalid"};
 
-  return {status: data.expires < todayIso() ? "expired" : "active", data};
+  return {status: isExpired(data.expires) ? "expired" : "active", data};
 }

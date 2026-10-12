@@ -1,7 +1,7 @@
 import "./generator-view.css";
 
 import {useRef, useState} from "react";
-import {LicensePreview, MAX_NICK_LENGTH, defaultExpiry, isIsoDate} from "@/entities/license";
+import {LicensePreview, MAX_NICK_LENGTH, defaultExpiry, isExpired, isIsoDate} from "@/entities/license";
 import {DownloadLicenseButton} from "@/features/download-license";
 
 const PLACEHOLDER_NICK = "Steve";
@@ -44,6 +44,10 @@ export default function GeneratorView() {
           <span>Действует до</span>
           <input type="date" value={expires} onChange={(event) => setExpires(event.target.value)}/>
         </label>
+
+        {isExpired(data.expires) && (
+          <p className="error-text">Дата уже прошла — лицензия будет выдана неактивной.</p>
+        )}
 
         <DownloadLicenseButton targetRef={cardRef} nick={data.nick} disabled={!isValid}/>
 

@@ -3,7 +3,7 @@ import "./license-card.css";
 import type {Ref} from "react";
 import {QRCodeSVG} from "qrcode.react";
 import type {LicenseData} from "../../../../types/type";
-import {buildVerifyUrl, formatExpiry, regNumber} from "../../../../helpers/license-helper";
+import {buildVerifyUrl, formatExpiry, isExpired, regNumber} from "../../../../helpers/license-helper";
 import {Check, Corner, Gear, GoldSeal, Motor, Signature, Stamp} from "../license-art/license-art";
 
 export const LICENSE_WIDTH = 1312;
@@ -26,6 +26,7 @@ interface IProps {
 
 export default function LicenseCard(props: IProps) {
   const {nick, expires} = props.data;
+  const expired = isExpired(expires);
   const nickFontSize = Math.min(NICK_MAX_FONT_SIZE, Math.floor(NICK_PLATE_WIDTH / nick.length));
 
   return (
@@ -93,7 +94,7 @@ export default function LicenseCard(props: IProps) {
             <dt><Gear/> СРОК ДЕЙСТВИЯ:</dt>
             <dd>{formatExpiry(expires)}</dd>
             <dt><Gear/> СТАТУС:</dt>
-            <dd className="status">Активна</dd>
+            <dd className={expired ? "status expired" : "status"}>{expired ? "Неактивна" : "Активна"}</dd>
             <dt><Gear/> РЕГИСТРАЦИОННЫЙ НОМЕР:</dt>
             <dd>{regNumber(nick)}</dd>
           </dl>
@@ -142,7 +143,7 @@ export default function LicenseCard(props: IProps) {
         </div>
       </div>
 
-      <Stamp className="license-stamp"/>
+      <Stamp className="license-stamp" expired={expired}/>
       <GoldSeal className="license-seal"/>
 
       <footer className="license-footer">

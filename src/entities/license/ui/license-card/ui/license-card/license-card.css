@@ -321,6 +321,11 @@
   background: #cbe3bb;
 }
 
+.license-fields dd.status.expired {
+  color: #7a1c1c;
+  background: #efc4c0;
+}
+
 .license-permissions {
   width: 440px;
   padding: 16px 20px 18px;

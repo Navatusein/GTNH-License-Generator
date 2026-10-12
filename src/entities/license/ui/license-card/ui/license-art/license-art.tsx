@@ -157,9 +157,9 @@ export function GoldSeal({className}: {className?: string}) {
   );
 }
 
-export function Stamp({className}: {className?: string}) {
+export function Stamp({className, expired}: {className?: string; expired?: boolean}) {
   const id = useId();
-  const ink = "#2456b8";
+  const ink = expired ? "#b83232" : "#2456b8";
   return (
     <svg className={className} viewBox="0 0 200 200" aria-hidden="true">
       <defs>
@@ -176,7 +176,7 @@ export function Stamp({className}: {className?: string}) {
       </text>
       <text style={SEAL_TEXT_STYLE} fill={ink} fontSize="15" textAnchor="middle">
         <textPath href={`#${id}-bottom`} startOffset="50%">
-          APPROVED
+          {expired ? "EXPIRED" : "APPROVED"}
         </textPath>
       </text>
       <path d={gearPath(100, 100, 40, 30, 12)} fill={ink} fillRule="evenodd" />
