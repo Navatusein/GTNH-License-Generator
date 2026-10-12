@@ -1,0 +1,24 @@
+.generator-view {
+  display: grid;
+  grid-template-columns: 340px minmax(0, 1fr);
+  align-items: start;
+  gap: 28px;
+}
+
+.generator-form {
+  position: sticky;
+  top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+@media (max-width: 900px) {
+  .generator-view {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .generator-form {
+    position: static;
+  }
+}
